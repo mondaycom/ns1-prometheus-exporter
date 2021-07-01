@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ns1-prometheus-exporter
+  name: ns1-prometheus-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ns1-prometheus-exporter
+  template:
+    metadata:
+      labels:
+        app: ns1-prometheus-exporter
+    spec:
+      containers:
+        - env:
+            - name: EXPORTER_GRANULARITY
+              value: record
+            - name: NS1_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: NS1_API_KEY
+                  name: ns1-api-key
+          image: dapulse/ns1-prometheus-exporter:latest
+          name: ns1-prometheus-exporter
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always

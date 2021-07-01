@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ns1-prometheus-exporter
+  name: ns1-prometheus-exporter
+spec:
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: ns1-prometheus-exporter
+  sessionAffinity: None
+  type: ClusterIP

@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ns1-prometheus-exporter
+spec:
+  endpoints:
+    - interval: 30s
+      path: /metrics
+      scrapeTimeout: 15s
+      port: http
+      scheme: http
+      targetPort: 3000
+  namespaceSelector:
+    matchNames:
+      - ns1-prometheus-exporter
+  selector:
+    matchLabels:
+      app: ns1-prometheus-exporter
