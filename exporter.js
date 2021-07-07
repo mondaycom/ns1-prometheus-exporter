@@ -3,6 +3,7 @@ const _ = require('lodash');
 const SIXTY_SECONDS = 60000;
 const GRANULARITY_RECORD = "record";
 const GRANULARITY_ZONE = "zone";
+const CLIENT_BATCH_SIZE = parseInt(process.env.CLIENT_BATCH_SIZE);
 
 class NS1Exporter {
   constructor(apiKey, zones = null, granularity = GRANULARITY_RECORD) {
@@ -58,18 +59,21 @@ ${this.granularity === GRANULARITY_RECORD ? `that contain ${Object.keys(this.cac
   }
 
   /**
-   *
-   * @returns {Promise<void>}
+   * Updates the cached metric values for all monitored zones/records whose values have not been recently updated
    */
   async updateCachedMetrics() {
     const recordsToUpdate = Object.values(this.cache).filter(isMetricStale);
-    const recordBatches = _.chunk(recordsToUpdate, 10);
+    const recordBatches = _.chunk(recordsToUpdate, CLIENT_BATCH_SIZE);
     for(const batch of recordBatches) {
       const updatePromises  = batch.map((r) => this.updateSingleRecordMetric(r));
       await Promise.all(updatePromises);
     }
   }
 
+  /**
+   * Updates a single NS1Record instance by pulling the most recent value from the NS1 API
+   * @param record an NS1Record instance to update
+   */
   async updateSingleRecordMetric(record) {
     const now = Date.now();
     try {
