@@ -23,7 +23,7 @@ spec:
                 secretKeyRef:
                   key: NS1_API_KEY
                   name: ns1-api-key
-          image: dapulse/ns1-prometheus-exporter:latest
+          image: mondaycom/ns1-prometheus-exporter:latest
           name: ns1-prometheus-exporter
           ports:
             - containerPort: 3000
