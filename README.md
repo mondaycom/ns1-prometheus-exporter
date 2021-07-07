@@ -2,7 +2,7 @@
 A simple, unofficial gateway application for exposing NS1 queries/min metrics using the OpenMetrics format
 
 ## How it works
-`ns1-prometheus-exporter` is a HTTP proxy application that listens on the `/metrics` HTTP endpoint, performs calls to the NS1 API and returns the results in the Prometheus-compatible OpenMetrics format.
+This project is a HTTP proxy application that listens on the `/metrics` HTTP endpoint, performs calls to the NS1 API and returns the results in a format that's ready to be scraped by Prometheus.
 
 Results that are fetched from the API are cached for 1 minute to prevent excessive external calls. Results can be retrieved and displayed either on a record-level, i.e.
 ```
@@ -15,18 +15,18 @@ ns1_record_queries_per_minute{zone="example.com"} 600 1625082420000
 ```
 
 ## Quick start
-To run the exporter locally:
+To run the exporter **locally**:
 ```bash
 npm install
 NS1_API_KEY=8H9sX... node index.js
 ```
 
-To run the exporter using Docker:
+To run the exporter using **Docker**:
 ```bash
 docker run -d -p 3000:3000 -e NS1_API_KEY=8H9sX... dapulse/ns1-prometheus-exporter
 ```
 
-To run the exporter as a Kubernetes deployment, including a `ServiceMonitor` object to instruct Prometheus to scrape the metrics endpoint, see the `example/` directory for YAML files.
+To run the exporter as a **Kubernetes** deployment, including a `ServiceMonitor` object to instruct Prometheus to scrape the metrics endpoint, see the `example/` directory for YAML files.
 
 ## Environment variables
 The exporter can be configured using the following environment variables:
