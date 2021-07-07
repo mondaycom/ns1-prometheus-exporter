@@ -8,6 +8,15 @@ class NS1Client {
       timeout: parseInt(process.env.CLIENT_TIMEOUT),
       headers: {'X-NSONE-Key': this.apiKey}
     });
+    this.axiosClient.interceptors.response.use(resp => {
+      return resp;
+    }, error => {
+      if(error.response.status === 401) {
+        console.error("NS1 API returned HTTP 401, please verify that the API key you provided is valid");
+      } else {
+        console.error(`NS1 API returned an error code: HTTP ${error.response.status}`);
+      }
+    });
   }
 
   /**

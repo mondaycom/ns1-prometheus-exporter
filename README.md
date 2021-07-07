@@ -1,4 +1,7 @@
 # ns1-prometheus-exporter
+
+![Docker Image Version (latest by date)](https://img.shields.io/docker/v/mondaycom/ns1-prometheus-exporter)
+
 A simple, unofficial gateway application for exposing NS1 queries/min metrics using the OpenMetrics format
 
 ## How it works
