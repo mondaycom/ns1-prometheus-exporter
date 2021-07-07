@@ -4,7 +4,7 @@
   "description": "A simple gateway application for exposing NS1 queries/min metrics using the OpenMetrics format",
   "main": "index.js",
   "author": "Daniel Mittelman @ monday.com",
-  "license": "MIT",
+  "license": "BSD 3 Clause",
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
