@@ -26,7 +26,7 @@ NS1_API_KEY=8H9sX... node index.js
 
 To run the exporter using **Docker**:
 ```bash
-docker run -d -p 3000:3000 -e NS1_API_KEY=8H9sX... dapulse/ns1-prometheus-exporter
+docker run -d -p 3000:3000 -e NS1_API_KEY=8H9sX... mondaycom/ns1-prometheus-exporter
 ```
 
 To run the exporter as a **Kubernetes** deployment, including a `ServiceMonitor` object to instruct Prometheus to scrape the metrics endpoint, see the `example/` directory for YAML files.
